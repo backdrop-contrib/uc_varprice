@@ -84,6 +84,9 @@ function uc_varprice_form_alter(&$form, &$form_state, $form_id) {
   // 3) Disable the appropriate Qty. fields on the cart view form.
   if ($form_id == 'uc_cart_view_form') {
     for ($i = 0, $j = count(uc_cart_get_contents()); $i < $j; $i++) {
+      if (!isset($form['items'][$i]['data']['#value'])) {
+        continue;
+      }
       $data = unserialize($form['items'][$i]['data']['#value']);
 
       // If this item has a quantity restriction on it...
